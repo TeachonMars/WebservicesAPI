@@ -1,0 +1,556 @@
+{
+	"info": {
+		"_postman_id": "9c2cb60c-6153-4588-bfa2-7afbc65e0ffe",
+		"name": "Teach on Mars Web Services",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Learners Management",
+			"item": [
+				{
+					"name": "Fetch learner",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "4a402558-a9f7-48b0-9254-dc39cd34afb0",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-TOM-APPLICATION-LANGUAGE",
+								"value": "{{header_lang}}"
+							},
+							{
+								"key": "X-TOM-APP",
+								"value": "{{header_app}}"
+							},
+							{
+								"key": "X-TOM-RTS",
+								"value": "{{header_timestamp}}"
+							},
+							{
+								"key": "X-TOM-NONCE",
+								"value": "{{header_nonce}}"
+							},
+							{
+								"key": "X-TOM-API-HASH",
+								"value": "{{header_hash}}"
+							},
+							{
+								"key": "X-TOM-API-KEY",
+								"value": "{{header_api_key}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{TOM_API_HOST}}/api/v3/learner?limit=10&page=1",
+							"host": [
+								"{{TOM_API_HOST}}"
+							],
+							"path": [
+								"api",
+								"v3",
+								"learner"
+							],
+							"query": [
+								{
+									"key": "logins[0]",
+									"value": "johndoe@example.com",
+									"description": "Search one or multiple learners using their logins",
+									"disabled": true
+								},
+								{
+									"key": "activeOnly",
+									"value": "true",
+									"description": "Filter enrolled learners only",
+									"disabled": true
+								},
+								{
+									"key": "search",
+									"value": "john",
+									"description": "Search for learners matching the search query string. Match is tested against firstname, lastname, login and email",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "10",
+									"description": "Limit the number of learners in the paginated response"
+								},
+								{
+									"key": "page",
+									"value": "1",
+									"description": "Select the page of the query"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create learner",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "b95ef202-c76c-48ac-810a-6a6f5e4658ea",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-TOM-APPLICATION-LANGUAGE",
+								"value": "{{header_lang}}"
+							},
+							{
+								"key": "X-TOM-APP",
+								"value": "{{header_app}}"
+							},
+							{
+								"key": "X-TOM-RTS",
+								"value": "{{header_timestamp}}"
+							},
+							{
+								"key": "X-TOM-NONCE",
+								"value": "{{header_nonce}}"
+							},
+							{
+								"key": "X-TOM-API-HASH",
+								"value": "{{header_hash}}"
+							},
+							{
+								"key": "X-TOM-API-KEY",
+								"value": "{{header_api_key}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"login\" : \"testpostman1\",\n\t\"nickname\" : \"testpostman1\",\n\t\"firstname\" : \"post\",\n\t\"lastname\" : \"man\",\n\t\"email\" : \"postman@tom.com\",\n\t\"password\" : \"ACu$tomPassword!\",\n\t\"metadata\": {\n        \"country\": \"FRANCE\"\n\t},\n\t\"lang\": \"en\",\n\t\"options\": {\n\t\t\"notifyLearner\": false\n\t}\n}"
+						},
+						"url": {
+							"raw": "{{TOM_API_HOST}}/api/v3/learner",
+							"host": [
+								"{{TOM_API_HOST}}"
+							],
+							"path": [
+								"api",
+								"v3",
+								"learner"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get learner from learnerId",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "4a402558-a9f7-48b0-9254-dc39cd34afb0",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-TOM-APPLICATION-LANGUAGE",
+								"value": "{{header_lang}}",
+								"type": "text"
+							},
+							{
+								"key": "X-TOM-APP",
+								"value": "{{header_app}}",
+								"type": "text"
+							},
+							{
+								"key": "X-TOM-RTS",
+								"value": "{{header_timestamp}}",
+								"type": "text"
+							},
+							{
+								"key": "X-TOM-NONCE",
+								"value": "{{header_nonce}}",
+								"type": "text"
+							},
+							{
+								"key": "X-TOM-API-HASH",
+								"value": "{{header_hash}}",
+								"type": "text"
+							},
+							{
+								"key": "X-TOM-API-KEY",
+								"value": "{{header_api_key}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{TOM_API_HOST}}/api/v3/learner/:learnerId",
+							"host": [
+								"{{TOM_API_HOST}}"
+							],
+							"path": [
+								"api",
+								"v3",
+								"learner",
+								":learnerId"
+							],
+							"variable": [
+								{
+									"key": "learnerId",
+									"value": "0a1482db-1243-477c-b10a-278c3bf23408"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update learner",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "b95ef202-c76c-48ac-810a-6a6f5e4658ea",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "X-TOM-APPLICATION-LANGUAGE",
+								"value": "{{header_lang}}",
+								"type": "text"
+							},
+							{
+								"key": "X-TOM-APP",
+								"value": "{{header_app}}",
+								"type": "text"
+							},
+							{
+								"key": "X-TOM-RTS",
+								"value": "{{header_timestamp}}",
+								"type": "text"
+							},
+							{
+								"key": "X-TOM-NONCE",
+								"value": "{{header_nonce}}",
+								"type": "text"
+							},
+							{
+								"key": "X-TOM-API-HASH",
+								"value": "{{header_hash}}",
+								"type": "text"
+							},
+							{
+								"key": "X-TOM-API-KEY",
+								"value": "{{header_api_key}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"firstname\": \"John\",\n\t\"lastname\": \"Done\"\n}"
+						},
+						"url": {
+							"raw": "{{endpoint}}/api/v3/learner/:learnerId/update",
+							"host": [
+								"{{endpoint}}"
+							],
+							"path": [
+								"api",
+								"v3",
+								"learner",
+								":learnerId",
+								"update"
+							],
+							"variable": [
+								{
+									"key": "learnerId",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Learner",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "b95ef202-c76c-48ac-810a-6a6f5e4658ea",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "X-TOM-APPLICATION-LANGUAGE",
+								"value": "{{header_lang}}",
+								"type": "text"
+							},
+							{
+								"key": "X-TOM-APP",
+								"value": "{{header_app}}",
+								"type": "text"
+							},
+							{
+								"key": "X-TOM-RTS",
+								"value": "{{header_timestamp}}",
+								"type": "text"
+							},
+							{
+								"key": "X-TOM-NONCE",
+								"value": "{{header_nonce}}",
+								"type": "text"
+							},
+							{
+								"key": "X-TOM-API-HASH",
+								"value": "{{header_hash}}",
+								"type": "text"
+							},
+							{
+								"key": "X-TOM-API-KEY",
+								"value": "{{header_api_key}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{TOM_API_HOST}}/api/v3/learner/:learnerId",
+							"host": [
+								"{{TOM_API_HOST}}"
+							],
+							"path": [
+								"api",
+								"v3",
+								"learner",
+								":learnerId"
+							],
+							"variable": [
+								{
+									"key": "learnerId",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "4b533cae-73a6-4168-bde2-7a8b3e102ebc",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "4c2a629d-777b-4019-aa37-622cdb541b96",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Identity Token",
+			"item": [
+				{
+					"name": "Verify Identity Token",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "b95ef202-c76c-48ac-810a-6a6f5e4658ea",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-TOM-APPLICATION-LANGUAGE",
+								"value": "{{header_lang}}"
+							},
+							{
+								"key": "X-TOM-APP",
+								"value": "{{header_app}}"
+							},
+							{
+								"key": "X-TOM-RTS",
+								"value": "{{header_timestamp}}"
+							},
+							{
+								"key": "X-TOM-NONCE",
+								"value": "{{header_nonce}}"
+							},
+							{
+								"key": "X-TOM-API-HASH",
+								"value": "{{header_hash}}"
+							},
+							{
+								"key": "X-TOM-API-KEY",
+								"value": "{{header_api_key}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"learnerId\" : \"\",\n\t\"token\" : \"\"\n}"
+						},
+						"url": {
+							"raw": "{{TOM_API_HOST}}/api/v3/verifyIdentityToken",
+							"host": [
+								"{{TOM_API_HOST}}"
+							],
+							"path": [
+								"api",
+								"v3",
+								"verifyIdentityToken"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "94aa4de8-e97e-4926-bf36-161b1e31b894",
+				"type": "text/javascript",
+				"exec": [
+					"function makeid() {",
+					"  var text = \"\";",
+					"  var possible = \"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789\";",
+					"",
+					"  for (var i = 0; i < 32; i++)",
+					"    text += possible.charAt(Math.floor(Math.random() * possible.length));",
+					"",
+					"  return text;",
+					"}",
+					"",
+					"var ts = + new Date();",
+					"ts = (\"\" + ts).substring(0,10);",
+					"",
+					"",
+					"var app = environment.TOM_APP_ID;",
+					"var nonce = makeid();",
+					"",
+					"var api_key = environment.TOM_API_KEY;",
+					"var api_secret = environment.TOM_API_SECRET;",
+					"",
+					"var requestUrl = request.url.replace(/{{(\\w*)}}/g,function(str,key) {return environment[key]});",
+					"",
+					"var salt = api_secret",
+					"    + ts",
+					"    + app",
+					"    + CryptoJS.MD5( (request.method == \"GET\" | request.method == \"DELETE\" ? \"\" : request.data) + requestUrl) // payload + url",
+					"    + nonce",
+					"",
+					"",
+					"var hash = CryptoJS.SHA256(salt).toString();",
+					"",
+					"",
+					"pm.globals.set(\"header_lang\", environment.TOM_LEARNER_LANGUAGE | \"fr\");",
+					"pm.globals.set(\"header_app\", environment.TOM_APP_ID);",
+					"pm.globals.set(\"header_timestamp\", ts);",
+					"pm.globals.set(\"header_api_key\", api_key);",
+					"pm.globals.set(\"header_nonce\", nonce);",
+					"pm.globals.set(\"header_hash\", hash);",
+					"",
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "57472c5c-ec80-4f86-b4a4-ae38a1beba71",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
