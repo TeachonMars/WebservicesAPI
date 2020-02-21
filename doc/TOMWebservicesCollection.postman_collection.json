@@ -326,6 +326,121 @@
 				}
 			],
 			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Training Course Registrations Import",
+			"item": [
+				{
+					"name": "Import Registrations",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "b95ef202-c76c-48ac-810a-6a6f5e4658ea",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"data\": [\n\t\t{\n\t\t\t\"learnerId\": \"john.doe\",\n\t\t\t\"trainingId\": \"sales-101\"\n\t\t},\n\t\t{\n\t\t\t\"learnerId\": \"john.doe\",\n\t\t\t\"trainingId\": \"management-101\"\n\t\t}\n\t]\n}"
+						},
+						"url": {
+							"raw": "{{TOM_API_HOST}}/api/v3/training/access/import",
+							"host": [
+								"{{TOM_API_HOST}}"
+							],
+							"path": [
+								"api",
+								"v3",
+								"training",
+								"access",
+								"import"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Import Registrations Confirm",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "b95ef202-c76c-48ac-810a-6a6f5e4658ea",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{TOM_API_HOST}}/api/v3/training/access/import/:importId",
+							"host": [
+								"{{TOM_API_HOST}}"
+							],
+							"path": [
+								"api",
+								"v3",
+								"training",
+								"access",
+								"import",
+								":importId"
+							],
+							"variable": [
+								{
+									"key": "importId",
+									"value": "blah"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "05ad702d-6248-4f1f-b652-eb194401c1ff",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "4bbd4edc-49a4-451b-91e0-a89600aec353",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
 		}
 	],
 	"event": [
@@ -357,10 +472,21 @@
 					"",
 					"var requestUrl = request.url.replace(/{{(\\w*)}}/g,function(str,key) {return environment[key]});",
 					"",
+					"if (request.method == \"GET\" || request.method == \"DELETE\" ",
+					"    || (typeof request.data == \"object\" && JSON.stringify(request.data).length <= 2)",
+					"    || (typeof request.data == \"array\" && JSON.stringify(request.data).length <= 2)) {",
+					"    var bodyHash = \"\";    ",
+					"}",
+					"else {",
+					"    ",
+					"    var bodyHash = request.data;",
+					"}",
+					"",
+					"",
 					"var salt = api_secret",
 					"    + ts",
 					"    + app",
-					"    + CryptoJS.MD5( (request.method == \"GET\" | request.method == \"DELETE\" ? \"\" : request.data) + requestUrl) // payload + url",
+					"    + CryptoJS.MD5( bodyHash + requestUrl) // payload + url",
 					"    + nonce;",
 					"",
 					"",
@@ -396,8 +522,6 @@
 					"    key: 'X-TOM-APPLICATION-LANGUAGE',",
 					"    value: environment.TOM_LEARNER_LANGUAGE | \"fr\"",
 					"});",
-					"",
-					"",
 					""
 				]
 			}
