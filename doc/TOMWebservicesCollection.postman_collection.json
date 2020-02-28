@@ -32,7 +32,7 @@
 							}
 						],
 						"url": {
-							"raw": "{{TOM_API_HOST}}/api/v3/learner?limit=10&page=1",
+							"raw": "{{TOM_API_HOST}}/api/v3/learner?limit=10&page=1&orderCol=login",
 							"host": [
 								"{{TOM_API_HOST}}"
 							],
@@ -67,8 +67,11 @@
 								},
 								{
 									"key": "page",
-									"value": "1",
-									"description": "Select the page of the query"
+									"value": "1"
+								},
+								{
+									"key": "orderCol",
+									"value": "login"
 								}
 							]
 						}
@@ -99,7 +102,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"login\" : \"testpostman1\",\n\t\"nickname\" : \"testpostman1\",\n\t\"firstname\" : \"post\",\n\t\"lastname\" : \"man\",\n\t\"email\" : \"postman@tom.com\",\n\t\"password\" : \"ACu$tomPassword!\",\n\t\"metadata\": {\n        \"country\": \"FRANCE\"\n\t},\n\t\"lang\": \"en\",\n\t\"options\": {\n\t\t\"notifyLearner\": false\n\t}\n}"
+							"raw": "{\n\t\"login\" : \"testpostman1\",\n\t\"firstname\" : \"post\",\n\t\"lastname\" : \"man\",\n\t\"email\" : \"postman@tom.com\",\n\t\"password\" : \"ACu$tomPassword!\",\n\t\"metadata\": {\n        \"country\": \"FRANCE\"\n\t},\n\t\"lang\": \"en\",\n\t\"options\": {\n\t\t\"notifyLearner\": false\n\t}\n}"
 						},
 						"url": {
 							"raw": "{{TOM_API_HOST}}/api/v3/learner",
@@ -152,7 +155,7 @@
 							"variable": [
 								{
 									"key": "learnerId",
-									"value": "0a1482db-1243-477c-b10a-278c3bf23408"
+									"value": ""
 								}
 							]
 						}
@@ -187,9 +190,9 @@
 							"raw": "{\n\t\"firstname\": \"John\",\n\t\"lastname\": \"Done\"\n}"
 						},
 						"url": {
-							"raw": "{{endpoint}}/api/v3/learner/:learnerId/update",
+							"raw": "{{TOM_API_HOST}}/api/v3/learner/:learnerId/update",
 							"host": [
-								"{{endpoint}}"
+								"{{TOM_API_HOST}}"
 							],
 							"path": [
 								"api",
