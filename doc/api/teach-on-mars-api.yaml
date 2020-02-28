@@ -160,6 +160,24 @@ paths:
           description: Filter enrolled learners only
       tags:
         - Learner
+    post:
+      summary: ''
+      operationId: post-learner
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Learner'
+      description: Create a new learner
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LearnerCreate'
+      tags:
+        - Learner
 components:
   schemas:
     AuthToken:
@@ -207,6 +225,14 @@ components:
         Learner Metadata Example:
           country: France
           department: Sales
+    LearnerCreate:
+      title: LearnerCreate
+      type: object
+      properties:
+        login:
+          type: string
+      required:
+        - login
   securitySchemes: {}
 tags:
   - name: Learner
