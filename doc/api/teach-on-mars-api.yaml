@@ -201,6 +201,43 @@ paths:
           description: 'Not Found: no learner was foudn with the given learnerId.'
       operationId: get-learner-learnerId
       description: Returns the information of the learner with the given learnerId.
+    delete:
+      summary: ''
+      operationId: delete-learner-learnerId
+      responses:
+        '200':
+          description: OK
+      description: Deletes the learner with the given learnerId
+  '/learner/{learnerId}/update':
+    parameters:
+      - schema:
+          type: string
+        name: learnerId
+        in: path
+        required: true
+    put:
+      summary: ''
+      operationId: put-learner-learnerId-update
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Learner'
+        '400':
+          description: "Bad Request: depending on the value of meta.msg in the repsonse payload:\n* \\\"LEARNER\\_PARAM\\_EMAIL\\_INVALID\\\": The format of the email address is invalid\n* \\\"LEARNER_PARAM_PASSWORD_INVALID\\\": The format of the password is invalid. Password rules can be configured by the Teach on Mars production team in the Mission Center."
+        '404':
+          description: 'Not Found: no learner was found with the given learnerId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LearnerUpdate'
+        description: ''
+      description: 'Update the learner with the given learnerId  '
+      tags:
+        - Learner
 components:
   schemas:
     AuthToken:
@@ -248,8 +285,61 @@ components:
       properties:
         login:
           type: string
+        email:
+          type: string
+          format: email
+        firstname:
+          type: string
+        lastname:
+          type: string
+        metadata:
+          $ref: '#/components/schemas/LearnerMetadata'
+        status:
+          type: string
+          default: A
+          enum:
+            - A
+            - I
+          example: A
+        password:
+          type: string
+        lang:
+          type: string
+          example: en
+        sandboxTester:
+          type: boolean
+          default: false
+          description: Can the learner view test versions of training courses.
       required:
         - login
+    LearnerUpdate:
+      title: LearnerUpdate
+      type: object
+      properties:
+        lang:
+          type: string
+          example: en
+        password:
+          type: string
+        status:
+          type: string
+          default: A
+          enum:
+            - A
+            - I
+          example: A
+        metadata:
+          $ref: '#/components/schemas/LearnerMetadata'
+        lastname:
+          type: string
+        firstname:
+          type: string
+        email:
+          type: string
+          format: email
+        sandboxTester:
+          type: boolean
+          description: Can the learner view test versions of training courses.
   securitySchemes: {}
 tags:
   - name: Learner
