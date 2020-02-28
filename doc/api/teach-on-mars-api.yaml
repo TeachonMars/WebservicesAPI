@@ -22,9 +22,7 @@ paths:
                 type: object
                 properties:
                   authToken:
-                    title: AuthToken
-                    type: string
-                    description: This token shall be used to authenticate a learner in the application or webapp. It is by default valid for 1 minute.
+                    $ref: '#/components/schemas/AuthToken'
                 required:
                   - authToken
         '404':
@@ -170,6 +168,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Learner'
+        '400':
+          description: "The provided data is invalid. Here are the possible errors, depending on the value of meta.msg:\n* \\\"LEARNER\\_PARAM\\_NICKNAME\\_MISSING\\\": No login was provided. Eithier the key is missing from the payload or the value is \\\"\\\".\n* \\\"LEARNER\\_PARAMS\\_INVALID\\\": The provided data is invalid. For instance, the email address may be invalid."
       description: Create a new learner
       requestBody:
         content:
@@ -178,6 +178,29 @@ paths:
               $ref: '#/components/schemas/LearnerCreate'
       tags:
         - Learner
+  '/learner/{learnerId}':
+    parameters:
+      - schema:
+          type: string
+        name: learnerId
+        in: path
+        required: true
+        description: The ID of the learner
+    get:
+      summary: Your GET endpoint
+      tags:
+        - Learner
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Learner'
+        '404':
+          description: 'Not Found: no learner was foudn with the given learnerId.'
+      operationId: get-learner-learnerId
+      description: Returns the information of the learner with the given learnerId.
 components:
   schemas:
     AuthToken:
@@ -207,13 +230,7 @@ components:
         title:
           type: string
         metadata:
-          title: LearnerMetadata
-          type: object
-          description: This object contains key/value pairs where keys depend on the custom fields configuration in the Mission Center.
-          x-examples:
-            Learner Metadata Example:
-              country: France
-              department: Sales
+          $ref: '#/components/schemas/LearnerMetadata'
       required:
         - learnerId
         - login
