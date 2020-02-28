@@ -207,7 +207,7 @@ paths:
       responses:
         '200':
           description: OK
-      description: Deletes the learner with the given learnerId
+      description: Deletes the learner with the given learnerId.
   '/learner/{learnerId}/update':
     parameters:
       - schema:
