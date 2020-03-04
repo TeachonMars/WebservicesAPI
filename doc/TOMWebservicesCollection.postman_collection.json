@@ -2,6 +2,7 @@
 	"info": {
 		"_postman_id": "8c8c44de-b7b6-490f-a9c3-65ae8ecec812",
 		"name": "Teach on Mars Web Services",
+		"description": "This is the documentation for the Teach on Mars Web Services. If you want to try those routes for yourself, you should start by setting up your environment variables:\n* Download the [Teach on Mars environment blueprint](https://github.com/TeachonMars/WebservicesAPI/raw/master/doc/TOMEnvironmentBlueprint.postman_environment.json)\n* Update the environment variables with the information that the Teach on Mars team gave you.\n\nThen you can click on **Run in Postman** and try out the services.\n\nMore information in our [Help Center](https://support.teachonmars.com/hc/en-us/articles/360039561412).",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -27,12 +28,12 @@
 						"header": [
 							{
 								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
+								"type": "text",
+								"value": "application/json"
 							}
 						],
 						"url": {
-							"raw": "{{TOM_API_HOST}}/api/v3/learner?limit=10&page=1&orderCol=login",
+							"raw": "{{TOM_API_HOST}}/api/v3/learner?limit=10&page=1&logins[0]=&activeOnly=&search=",
 							"host": [
 								"{{TOM_API_HOST}}"
 							],
@@ -43,40 +44,174 @@
 							],
 							"query": [
 								{
-									"key": "logins[0]",
-									"value": "johndoe@example.com",
-									"description": "Search one or multiple learners using their logins",
-									"disabled": true
-								},
-								{
-									"key": "activeOnly",
-									"value": "true",
-									"description": "Filter enrolled learners only",
-									"disabled": true
-								},
-								{
-									"key": "search",
-									"value": "john",
-									"description": "Search for learners matching the search query string. Match is tested against firstname, lastname, login and email",
-									"disabled": true
-								},
-								{
 									"key": "limit",
 									"value": "10",
-									"description": "Limit the number of learners in the paginated response"
+									"description": "Limit the number of learners in the paginated response (default value: 10)"
 								},
 								{
 									"key": "page",
-									"value": "1"
+									"value": "1",
+									"description": "Select the page that is returned by the service. (default value: 1)"
+								},
+								{
+									"key": "logins[0]",
+									"value": "",
+									"description": "Search one or multiple learners using their logins"
+								},
+								{
+									"key": "activeOnly",
+									"value": "",
+									"description": "Filter enrolled learners only"
+								},
+								{
+									"key": "search",
+									"value": "",
+									"description": "Search for learners matching the search query string. Match is tested against firstname, lastname, login and email"
 								},
 								{
 									"key": "orderCol",
-									"value": "login"
+									"value": "login",
+									"description": "Choose the ",
+									"disabled": true
 								}
 							]
-						}
+						},
+						"description": "Returns a paginated list of learners according to the given parameters."
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Fetch learner",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{TOM_API_HOST}}/api/v3/learner?",
+									"host": [
+										"{{TOM_API_HOST}}"
+									],
+									"path": [
+										"api",
+										"v3",
+										"learner"
+									],
+									"query": [
+										{
+											"key": "logins[0]",
+											"value": "johndoe@example.com",
+											"description": "Search one or multiple learners using their logins",
+											"disabled": true
+										},
+										{
+											"key": "activeOnly",
+											"value": "true",
+											"description": "Filter enrolled learners only",
+											"disabled": true
+										},
+										{
+											"key": "search",
+											"value": "john",
+											"description": "Search for learners matching the search query string. Match is tested against firstname, lastname, login and email",
+											"disabled": true
+										},
+										{
+											"key": "limit",
+											"value": "10",
+											"description": "Limit the number of learners in the paginated response (default value: 10)",
+											"disabled": true
+										},
+										{
+											"key": "page",
+											"value": "1",
+											"description": "Select the page that is returned by the service. (default value: 1)",
+											"disabled": true
+										},
+										{
+											"key": "orderCol",
+											"value": "login",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=75"
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "PHPSESSID=5iiqecl6frq6dda5t7gl5bn7a2; path=/"
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "userdata_session=eyJpdiI6InRncWR4M3RTcXhXNCtMa3BhRG9saXc9PSIsInZhbHVlIjoidW9HaENEV1hzQWh1R2FDWnZFcUdPUzNlZGZuTEpVR1JXR1JOVkJ0MHpxVUNTaDJYMHhKMkJtbzRuZHRRb1RjUlVpaHBBS21oMDFwT0E0TGxtcmFrRXc9PSIsIm1hYyI6IjljN2JlNGUzMDRlMmI4MTc1NWU1MDkwYjA0NTQ1NWM5YTBkYTJjZTY0YjgyYzVmMmQwODQ1YTIzYmUzMWFjYmMifQ%3D%3D; expires=Wed, 04-Mar-2020 10:16:01 GMT; Max-Age=7200; path=/; httponly"
+								},
+								{
+									"key": "Expires",
+									"value": "Thu, 19 Nov 1981 08:52:00 GMT"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-store, no-cache, must-revalidate, post-check=0, pre-check=0"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 04 Mar 2020 08:16:01 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "ToM"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Access-Control-Allow-Origin, Accept, origin, content-type, X-TOM-NONCE, X-TOM-RTS, X-TOM-APP, X-TOM-API-HASH, X-TOM-API-KEY, X-TOM-DEVICE-LANGUAGE, X-TOM-APPLICATION-LANGUAGE, X-TOM-LEARNER-ID, X-TOM-AUTH-TOKEN, X-TOM-DEVICE-PLATFORM"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "DELETE, POST, GET, PATCH, PUT"
+								},
+								{
+									"key": "Access-Control-Expose-Headers",
+									"value": "X-TOM-NEXT-TOKEN"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"meta\": {\n        \"status\": 200,\n        \"msg\": \"OK\",\n        \"timestamp\": 1583309761,\n        \"err\": 0,\n        \"errno\": 0\n    },\n    \"response\": {\n        \"list\": [\n            {\n                \"learnerId\": \"tGh36f20-9850-11e7-91f7-154587089c87\",\n                \"login\": \"john.doe\",\n                \"email\": \"john.doe@example.com\",\n                \"firstname\": \"John\",\n                \"lastname\": \"Doe\",\n                \"status\": \"A\",\n                \"lang\": \"fr\",\n                \"avatar\": \"user/tGh36f20-9850-11e7-91f7-154587089c87/avatar/44df5ebf78d46af9594b4a47a37d234df4eb1a58773c6d10af6654f678d2915f\",\n                \"metadata\": {\n                    \"company\": \"My Company\",\n                    \"country\": \"France\"\n                },\n                \"sandboxTester\": true,\n                \"createdAt\": 1505278723,\n                \"title\": null,\n                \"tos\": {\n                    \"version\": 6,\n                    \"tosUpdated\": true\n                }\n            },\n            {\n                \"learnerId\": \"tGh0604f-7cd4-4f75-b71e-7bd582aca3ed\",\n                \"login\": \"jane.doe\",\n                \"email\": \"jane.doe@example.com\",\n                \"firstname\": \"Jane\",\n                \"lastname\": \"Doe\",\n                \"status\": \"I\",\n                \"lang\": \"fr\",\n                \"avatar\": null,\n                \"metadata\": {\n                    \"company\": \"My Company\",\n                    \"country\": \"France\"\n                },\n                \"sandboxTester\": false,\n                \"createdAt\": 1555422344,\n                \"title\": null,\n                \"tos\": {\n                    \"version\": 6,\n                    \"tosUpdated\": true\n                }\n            },\n            {\n                \"learnerId\": \"tGh95f30-f16c-11e7-b2fd-a9cd5d611d07\",\n                \"login\": \"anthony.johnson\",\n                \"email\": \"anthony.johnson@my-company.com\",\n                \"firstname\": \"Anthony\",\n                \"lastname\": \"Johnson\",\n                \"status\": \"I\",\n                \"lang\": \"en\",\n                \"avatar\": \"user/tGh95f30-f16c-11e7-b2fd-a9cd5d611d07/avatar/ac87141fedcaaf41ca421a0644fa3da49276488b799f69e46dcd681cf6aaa288\",\n                \"metadata\": {\n                    \"company\": \"My Company\",\n                    \"country\": \"France\"\n                },\n                \"sandboxTester\": true,\n                \"createdAt\": 1515083360,\n                \"title\": null,\n                \"tos\": {\n                    \"version\": 6,\n                    \"tosUpdated\": true\n                }\n            },\n            {\n                \"learnerId\": \"tGhe53c0-9fc4-11e8-916e-7fd50a55361f\",\n                \"login\": \"elena.jones\",\n                \"email\": \"elena.jones@my-company.com\",\n                \"firstname\": \"Elena\",\n                \"lastname\": \"Jones\",\n                \"status\": \"I\",\n                \"lang\": \"en\",\n                \"avatar\": \"user/tGhe53c0-9fc4-11e8-916e-7fd50a55361f/avatar/2d62598e8c90a4cc38c2907fdf7d3348fa70b124af5b8f482863d47c3a95406f\",\n                \"metadata\": {\n                    \"company\": \"My Company\",\n                    \"country\": \"\"\n                },\n                \"sandboxTester\": true,\n                \"createdAt\": 1534245338,\n                \"title\": null,\n                \"tos\": {\n                    \"version\": 6,\n                    \"tosUpdated\": true\n                }\n            },\n            {\n                \"learnerId\": \"tGh88480-aff5-11e6-99b8-83ea39b739e8\",\n                \"login\": \"mary.poppins\",\n                \"email\": \"mary.poppins@enchanted.com\",\n                \"firstname\": \"Mary\",\n                \"lastname\": \"Poppins\",\n                \"status\": \"A\",\n                \"lang\": \"fr\",\n                \"avatar\": null,\n                \"metadata\": {\n                    \"company\": \"My Company\",\n                    \"country\": \"\"\n                },\n                \"sandboxTester\": true,\n                \"createdAt\": 1479734324,\n                \"title\": null,\n                \"tos\": {\n                    \"version\": 6,\n                    \"tosUpdated\": true\n                }\n            },\n            {\n                \"learnerId\": \"tGhfee82-48be-4e4c-934d-ce0f16fa6a6a\",\n                \"login\": \"roger.rabbit\",\n                \"email\": \"roger.rabbit@my-company.com\",\n                \"firstname\": \"Roger\",\n                \"lastname\": \"Rabbit\",\n                \"status\": \"A\",\n                \"lang\": \"en\",\n                \"avatar\": null,\n                \"metadata\": {\n                    \"company\": \"My Company\",\n                    \"country\": \"\"\n                },\n                \"sandboxTester\": true,\n                \"createdAt\": 1556376565,\n                \"title\": null,\n                \"tos\": {\n                    \"version\": 6,\n                    \"tosUpdated\": true\n                }\n            },\n            {\n                \"learnerId\": \"tGh02b3d-41bd-4bb0-b34b-3fe812758b56\",\n                \"login\": \"michael.mitchell\",\n                \"email\": \"michael.mitchell@my-company.net\",\n                \"firstname\": \"Michael\",\n                \"lastname\": \"Mitchell\",\n                \"status\": \"A\",\n                \"lang\": \"en\",\n                \"avatar\": null,\n                \"metadata\": {\n                    \"company\": \"My Company\",\n                    \"country\": \"\"\n                },\n                \"sandboxTester\": false,\n                \"createdAt\": 1558072361,\n                \"title\": null,\n                \"tos\": {\n                    \"version\": 6,\n                    \"tosUpdated\": true\n                }\n            },\n            {\n                \"learnerId\": \"tGh5e820-76bf-11e7-8201-b1010708107c\",\n                \"login\": \"judy.pane\",\n                \"email\": \"judy.pane@my-company.com\",\n                \"firstname\": \"Judy\",\n                \"lastname\": \"Pane\",\n                \"status\": \"I\",\n                \"lang\": \"fr\",\n                \"avatar\": \"user/tGh5e820-76bf-11e7-8201-b1010708107c/avatar/e742259ce5e47805ebe1f47797ac4f0604d4b336abc60ecec6346d8469f6f621\",\n                \"metadata\": {\n                    \"company\": \"My Company\",\n                    \"country\": \"\"\n                },\n                \"sandboxTester\": true,\n                \"createdAt\": 1501587898,\n                \"title\": null,\n                \"tos\": {\n                    \"version\": 6,\n                    \"tosUpdated\": true\n                }\n            },\n            {\n                \"learnerId\": \"tGh40802-4db7-4fa4-8f46-c07b6c11b9ab\",\n                \"login\": \"patrice.smith\",\n                \"email\": \"patrice.smith@my-company.com\",\n                \"firstname\": \"Patrice\",\n                \"lastname\": \"Smith\",\n                \"status\": \"A\",\n                \"lang\": \"fr\",\n                \"avatar\": null,\n                \"metadata\": {\n                    \"company\": \"My Company\",\n                    \"country\": \"\"\n                },\n                \"sandboxTester\": true,\n                \"createdAt\": 1573821866,\n                \"title\": null,\n                \"tos\": {\n                    \"version\": 6,\n                    \"tosUpdated\": false\n                }\n            },\n            {\n                \"learnerId\": \"tGh83588-b5f2-4948-8a6c-22ad8b4407ff\",\n                \"login\": \"anne\",\n                \"email\": \"anne.schiefer57440@gmail.com\",\n                \"firstname\": \"anne\",\n                \"lastname\": \"schiefer\",\n                \"status\": \"I\",\n                \"lang\": \"fr\",\n                \"avatar\": null,\n                \"metadata\": {\n                    \"company\": \"My Company\",\n                    \"country\": \"\"\n                },\n                \"sandboxTester\": true,\n                \"createdAt\": 1560931953,\n                \"title\": null,\n                \"tos\": {\n                    \"version\": 6,\n                    \"tosUpdated\": true\n                }\n            }\n        ],\n        \"orderCol\": \"login\",\n        \"orderDir\": \"asc\",\n        \"count\": 123,\n        \"page\": 1,\n        \"pagecount\": 13,\n        \"index\": 0,\n        \"pageSize\": 0\n    }\n}"
+						}
+					]
 				},
 				{
 					"name": "Create learner",
@@ -102,7 +237,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"login\" : \"testpostman1\",\n\t\"firstname\" : \"post\",\n\t\"lastname\" : \"man\",\n\t\"email\" : \"postman@tom.com\",\n\t\"password\" : \"ACu$tomPassword!\",\n\t\"metadata\": {\n        \"country\": \"FRANCE\"\n\t},\n\t\"lang\": \"en\",\n\t\"options\": {\n\t\t\"notifyLearner\": false\n\t}\n}"
+							"raw": "{\n\t\"login\" : \"john.doe\",\n\t\"firstname\" : \"John\",\n\t\"lastname\" : \"Doe\",\n\t\"email\" : \"john.doe@example.com\",\n\t\"password\" : \"ACu$tomPassword!\",\n\t\"metadata\": {\n        \"country\": \"France\",\n        \"company\": \"My Company\"\n\t},\n\t\"lang\": \"fr\",\n\t\"options\": {\n\t\t\"notifyLearner\": false\n\t}\n}"
 						},
 						"url": {
 							"raw": "{{TOM_API_HOST}}/api/v3/learner",
@@ -114,9 +249,171 @@
 								"v3",
 								"learner"
 							]
-						}
+						},
+						"description": "Creates a new learner."
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Create learner - 409 LEARNER_PARAM_LOGIN_ALREADY_EXISTS",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"login\" : \"john.doe\",\n\t\"firstname\" : \"John\",\n\t\"lastname\" : \"Doe\",\n\t\"email\" : \"john.doe@example.com\",\n\t\"password\" : \"ACu$tomPassword!\",\n\t\"metadata\": {\n        \"country\": \"France\",\n        \"company\": \"My Company\"\n\t},\n\t\"lang\": \"fr\",\n\t\"options\": {\n\t\t\"notifyLearner\": false\n\t}\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{TOM_API_HOST}}/api/v3/learner",
+									"host": [
+										"{{TOM_API_HOST}}"
+									],
+									"path": [
+										"api",
+										"v3",
+										"learner"
+									]
+								}
+							},
+							"status": "Conflict",
+							"code": 409,
+							"_postman_previewlanguage": "json",
+							"header": null,
+							"cookie": [],
+							"body": "{\n    \"meta\": {\n        \"status\": 409,\n        \"msg\": \"LEARNER_PARAM_LOGIN_ALREADY_EXISTS\",\n        \"timestamp\": 1583309761,\n        \"err\": 0,\n        \"errno\": 0\n    },\n    \"response\": {}\n}"
+						},
+						{
+							"name": "Create learner - 200 OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"login\" : \"john.doe\",\n\t\"firstname\" : \"John\",\n\t\"lastname\" : \"Doe\",\n\t\"email\" : \"john.doe@example.com\",\n\t\"password\" : \"ACu$tomPassword!\",\n\t\"metadata\": {\n        \"country\": \"France\",\n        \"company\": \"My Company\"\n\t},\n\t\"lang\": \"fr\",\n\t\"options\": {\n\t\t\"notifyLearner\": false\n\t}\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{TOM_API_HOST}}/api/v3/learner",
+									"host": [
+										"{{TOM_API_HOST}}"
+									],
+									"path": [
+										"api",
+										"v3",
+										"learner"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"meta\": {\n        \"status\": 200,\n        \"msg\": \"OK\",\n        \"timestamp\": 1583309761,\n        \"err\": 0,\n        \"errno\": 0\n    },\n    \"response\": {\n        \"learnerId\": \"tGh36f20-9850-11e7-91f7-154587089c87\",\n        \"login\": \"john.doe\",\n        \"email\": \"john.doe@example.com\",\n        \"firstname\": \"John\",\n        \"lastname\": \"Doe\",\n        \"status\": \"A\",\n        \"lang\": \"fr\",\n        \"avatar\": \"user/tGh36f20-9850-11e7-91f7-154587089c87/avatar/44df5ebf78d46af9594b4a47a37d234df4eb1a58773c6d10af6654f678d2915f\",\n        \"metadata\": {\n            \"company\": \"My Company\",\n            \"country\": \"France\"\n        },\n        \"sandboxTester\": true,\n        \"createdAt\": 1505278723,\n        \"title\": null,\n        \"tos\": {\n            \"version\": 6,\n            \"tosUpdated\": true\n        }\n    }\n}"
+						},
+						{
+							"name": "Create learner - 400 LEARNER_PARAM_NICKNAME_MISSING",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"login\" : \"\",\n\t\"firstname\" : \"John\",\n\t\"lastname\" : \"Doe\",\n\t\"email\" : \"john.doe@example.com\",\n\t\"password\" : \"ACu$tomPassword!\",\n\t\"metadata\": {\n        \"country\": \"France\",\n        \"company\": \"My Company\"\n\t},\n\t\"lang\": \"fr\",\n\t\"options\": {\n\t\t\"notifyLearner\": false\n\t}\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{TOM_API_HOST}}/api/v3/learner",
+									"host": [
+										"{{TOM_API_HOST}}"
+									],
+									"path": [
+										"api",
+										"v3",
+										"learner"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": null,
+							"cookie": [],
+							"body": "{\n    \"meta\": {\n        \"status\": 400,\n        \"msg\": \"LEARNER_PARAM_NICKNAME_MISSING\",\n        \"timestamp\": 1583309761,\n        \"err\": 0,\n        \"errno\": 0\n    },\n    \"response\": {}\n}"
+						},
+						{
+							"name": "Create learner - 400 LEARNER_PARAMS_INVALID",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"login\" : \"john.doe\",\n\t\"firstname\" : \"John\",\n\t\"lastname\" : \"Doe\",\n\t\"email\" : \"john.doe\",\n\t\"password\" : \"ACu$tomPassword!\",\n\t\"metadata\": {\n        \"country\": \"France\",\n        \"company\": \"My Company\"\n\t},\n\t\"lang\": \"fr\",\n\t\"options\": {\n\t\t\"notifyLearner\": false\n\t}\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{TOM_API_HOST}}/api/v3/learner",
+									"host": [
+										"{{TOM_API_HOST}}"
+									],
+									"path": [
+										"api",
+										"v3",
+										"learner"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": null,
+							"cookie": [],
+							"body": "{\n    \"meta\": {\n        \"status\": 400,\n        \"msg\": \"LEARNER_PARAMS_INVALID\",\n        \"timestamp\": 1583309761,\n        \"err\": 0,\n        \"errno\": 0\n    },\n    \"response\": {}\n}"
+						}
+					]
 				},
 				{
 					"name": "Get learner from learnerId",
@@ -160,7 +457,82 @@
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Get learner from learnerId - 200 OK",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{TOM_API_HOST}}/api/v3/learner/:learnerId",
+									"host": [
+										"{{TOM_API_HOST}}"
+									],
+									"path": [
+										"api",
+										"v3",
+										"learner",
+										":learnerId"
+									],
+									"variable": [
+										{
+											"key": "learnerId",
+											"value": "tGh36f20-9850-11e7-91f7-154587089c87"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": null,
+							"cookie": [],
+							"body": "{\n    \"meta\": {\n        \"status\": 200,\n        \"msg\": \"OK\",\n        \"timestamp\": 1583309761,\n        \"err\": 0,\n        \"errno\": 0\n    },\n    \"response\": {\n        {\n            \"learnerId\": \"tGh36f20-9850-11e7-91f7-154587089c87\",\n            \"login\": \"john.doe\",\n            \"email\": \"john.doe@example.com\",\n            \"firstname\": \"John\",\n            \"lastname\": \"Doe\",\n            \"status\": \"A\",\n            \"lang\": \"fr\",\n            \"avatar\": \"user/tGh36f20-9850-11e7-91f7-154587089c87/avatar/44df5ebf78d46af9594b4a47a37d234df4eb1a58773c6d10af6654f678d2915f\",\n            \"metadata\": {\n                \"company\": \"My Company\",\n                \"country\": \"France\"\n            },\n            \"sandboxTester\": true,\n            \"createdAt\": 1505278723,\n            \"title\": null,\n            \"tos\": {\n                \"version\": 6,\n                \"tosUpdated\": true\n            }\n        }\n    }\n}"
+						},
+						{
+							"name": "Get learner from learnerId - 404 LEARNER_NOT_FOUND",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{TOM_API_HOST}}/api/v3/learner/:learnerId",
+									"host": [
+										"{{TOM_API_HOST}}"
+									],
+									"path": [
+										"api",
+										"v3",
+										"learner",
+										":learnerId"
+									],
+									"variable": [
+										{
+											"key": "learnerId",
+											"value": "somelearneridthatdoesntexist"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": null,
+							"cookie": [],
+							"body": "{\n    \"meta\": {\n        \"status\": 404,\n        \"msg\": \"LEARNER_NOT_FOUND\",\n        \"timestamp\": 1583309761,\n        \"err\": 0,\n        \"errno\": 0\n    },\n    \"response\": {}\n}"
+						}
+					]
 				},
 				{
 					"name": "Update learner",
@@ -209,7 +581,152 @@
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Update learner - 404 LEARNER_NOT_FOUND",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"firstname\": \"John\",\n\t\"lastname\": \"Done\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{TOM_API_HOST}}/api/v3/learner/:learnerId/update",
+									"host": [
+										"{{TOM_API_HOST}}"
+									],
+									"path": [
+										"api",
+										"v3",
+										"learner",
+										":learnerId",
+										"update"
+									],
+									"variable": [
+										{
+											"key": "learnerId",
+											"value": "somelearnerifthatdoesntexist"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": null,
+							"cookie": [],
+							"body": "{\n    \"meta\": {\n        \"status\": 404,\n        \"msg\": \"LEARNER_NOT_FOUND\",\n        \"timestamp\": 1583309761,\n        \"err\": 0,\n        \"errno\": 0\n    },\n    \"response\": {}\n}"
+						},
+						{
+							"name": "Update learner - 400 LEARNER_PARAMS_INVALID",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"email\": \"john.doe\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{TOM_API_HOST}}/api/v3/learner/:learnerId/update",
+									"host": [
+										"{{TOM_API_HOST}}"
+									],
+									"path": [
+										"api",
+										"v3",
+										"learner",
+										":learnerId",
+										"update"
+									],
+									"variable": [
+										{
+											"key": "learnerId",
+											"value": "tGh36f20-9850-11e7-91f7-154587089c87"
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": null,
+							"cookie": [],
+							"body": "{\n    \"meta\": {\n        \"status\": 400,\n        \"msg\": \"LEARNER_PARAMS_INVALID\",\n        \"timestamp\": 1583309761,\n        \"err\": 0,\n        \"errno\": 0\n    },\n    \"response\": {}\n}"
+						},
+						{
+							"name": "Update learner - 200 OK",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"firstname\": \"John\",\n\t\"lastname\": \"Done\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{TOM_API_HOST}}/api/v3/learner/:learnerId/update",
+									"host": [
+										"{{TOM_API_HOST}}"
+									],
+									"path": [
+										"api",
+										"v3",
+										"learner",
+										":learnerId",
+										"update"
+									],
+									"variable": [
+										{
+											"key": "learnerId",
+											"value": "tGh36f20-9850-11e7-91f7-154587089c87"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": null,
+							"cookie": [],
+							"body": "{\n    \"meta\": {\n        \"status\": 200,\n        \"msg\": \"OK\",\n        \"timestamp\": 1583309761,\n        \"err\": 0,\n        \"errno\": 0\n    },\n    \"response\": {\n        \"learnerId\": \"tGh36f20-9850-11e7-91f7-154587089c87\",\n        \"login\": \"john.doe\",\n        \"email\": \"john.doe@example.com\",\n        \"firstname\": \"John\",\n        \"lastname\": \"Done\",\n        \"status\": \"A\",\n        \"lang\": \"fr\",\n        \"avatar\": \"user/tGh36f20-9850-11e7-91f7-154587089c87/avatar/44df5ebf78d46af9594b4a47a37d234df4eb1a58773c6d10af6654f678d2915f\",\n        \"metadata\": {\n            \"company\": \"My Company\",\n            \"country\": \"France\"\n        },\n        \"sandboxTester\": true,\n        \"createdAt\": 1505278723,\n        \"title\": null,\n        \"tos\": {\n            \"version\": 6,\n            \"tosUpdated\": true\n        }\n    }\n}"
+						}
+					]
 				},
 				{
 					"name": "Delete Learner",
@@ -257,9 +774,93 @@
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Delete Learner - 200 OK",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{TOM_API_HOST}}/api/v3/learner/:learnerId",
+									"host": [
+										"{{TOM_API_HOST}}"
+									],
+									"path": [
+										"api",
+										"v3",
+										"learner",
+										":learnerId"
+									],
+									"variable": [
+										{
+											"key": "learnerId",
+											"value": "tGh36f20-9850-11e7-91f7-154587089c87"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": null,
+							"cookie": [],
+							"body": "{\n    \"meta\": {\n        \"status\": 200,\n        \"msg\": \"OK\",\n        \"timestamp\": 1583309761,\n        \"err\": 0,\n        \"errno\": 0\n    },\n    \"response\": {}\n}"
+						},
+						{
+							"name": "Delete Learner - 404 LEARNER_NOT_FOUND",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{TOM_API_HOST}}/api/v3/learner/:learnerId",
+									"host": [
+										"{{TOM_API_HOST}}"
+									],
+									"path": [
+										"api",
+										"v3",
+										"learner",
+										":learnerId"
+									],
+									"variable": [
+										{
+											"key": "learnerId",
+											"value": "somelearneridthatdoesntexist"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": "{\n    \"meta\": {\n        \"status\": 404,\n        \"msg\": \"LEARNER_NOT_FOUND\",\n        \"timestamp\": 1583309761,\n        \"err\": 0,\n        \"errno\": 0\n    },\n    \"response\": {}\n}"
+						}
+					]
 				}
 			],
+			"description": "This is a set of routes to deal with the learners (users who access the application).",
 			"event": [
 				{
 					"listen": "prerequest",
@@ -325,7 +926,168 @@
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Verify Identity Token - 404 IDENTITY_VERIF_FAILED",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"learnerId\" : \"tGh36f20-9850-11e7-91f7-154587089c87\",\n\t\"token\" : \"somewrongtoken\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{TOM_API_HOST}}/api/v3/verifyIdentityToken",
+									"host": [
+										"{{TOM_API_HOST}}"
+									],
+									"path": [
+										"api",
+										"v3",
+										"verifyIdentityToken"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": null,
+							"cookie": [],
+							"body": "{\n    \"meta\": {\n        \"status\": 404,\n        \"msg\": \"IDENTITY_VERIF_FAILED\",\n        \"timestamp\": 1583309761,\n        \"err\": 0,\n        \"errno\": 0\n    },\n    \"response\": {}\n}"
+						},
+						{
+							"name": "Verify Identity Token - 200 OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"learnerId\" : \"tGh36f20-9850-11e7-91f7-154587089c87\",\n\t\"token\" : \"sometokenobtainedfromtheapp\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{TOM_API_HOST}}/api/v3/verifyIdentityToken",
+									"host": [
+										"{{TOM_API_HOST}}"
+									],
+									"path": [
+										"api",
+										"v3",
+										"verifyIdentityToken"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": null,
+							"cookie": [],
+							"body": "{\n    \"meta\": {\n        \"status\": 200,\n        \"msg\": \"OK\",\n        \"timestamp\": 1583309761,\n        \"err\": 0,\n        \"errno\": 0\n    },\n    \"response\": {\n        \"authToken\": \"fTeEgf47J9vTr98\"\n    }\n}"
+						},
+						{
+							"name": "Verify Identity Token - 404 IDENTITY_VERIF_LEARNERID_MISSING",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"learnerId\": \"\",\n\t\"token\": \"sometokenobtainedfromtheapp\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{TOM_API_HOST}}/api/v3/verifyIdentityToken",
+									"host": [
+										"{{TOM_API_HOST}}"
+									],
+									"path": [
+										"api",
+										"v3",
+										"verifyIdentityToken"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": null,
+							"cookie": [],
+							"body": "{\n    \"meta\": {\n        \"status\": 404,\n        \"msg\": \"IDENTITY_VERIF_LEARNERID_MISSING\",\n        \"timestamp\": 1583309761,\n        \"err\": 0,\n        \"errno\": 0\n    },\n    \"response\": {}\n}"
+						},
+						{
+							"name": "Verify Identity Token - 404 IDENTITY_VERIF_TOKEN_MISSING",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"learnerId\" : \"tGh36f20-9850-11e7-91f7-154587089c87\",\n\t\"token\" : \"\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{TOM_API_HOST}}/api/v3/verifyIdentityToken",
+									"host": [
+										"{{TOM_API_HOST}}"
+									],
+									"path": [
+										"api",
+										"v3",
+										"verifyIdentityToken"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": null,
+							"cookie": [],
+							"body": "{\n    \"meta\": {\n        \"status\": 404,\n        \"msg\": \"IDENTITY_VERIF_TOKEN_MISSING\",\n        \"timestamp\": 1583309761,\n        \"err\": 0,\n        \"errno\": 0\n    },\n    \"response\": {}\n}"
+						}
+					]
 				}
 			],
 			"protocolProfileBehavior": {}
@@ -373,10 +1135,93 @@
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Import Registrations - 200 OK With errors",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"data\": [\n\t\t{\n\t\t\t\"learnerId\": \"john.doe\",\n\t\t\t\"trainingId\": \"sales-101\"\n\t\t},\n\t\t{\n\t\t\t\"learnerId\": \"john.doe\",\n\t\t\t\"trainingId\": \"sales-101\"\n\t\t},\n\t\t{\n\t\t\t\"learnerId\": \"john.doe\",\n\t\t\t\"trainingId\": \"\"\n\t\t}\n\t]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{TOM_API_HOST}}/api/v3/training/access/import",
+									"host": [
+										"{{TOM_API_HOST}}"
+									],
+									"path": [
+										"api",
+										"v3",
+										"training",
+										"access",
+										"import"
+									]
+								}
+							},
+							"_postman_previewlanguage": "json",
+							"header": null,
+							"cookie": [],
+							"body": "{\n    \"meta\": {\n        \"status\": 200,\n        \"msg\": \"OK\",\n        \"timestamp\": 1583309761,\n        \"err\": 0,\n        \"errno\": 0\n    },\n    \"response\": {\n        \"importId\": \"hTfEgf47J9vTr98\",\n        \"status\": 1,\n        \"report\": {\n            \"errors\": [\n                \"Missing parameter trainingId (index 3)\",\n                \"There are duplicates in the registrations list\"\n            ]\n        }\n    }\n}"
+						},
+						{
+							"name": "Import Registrations - 200 OK Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"data\": [\n\t\t{\n\t\t\t\"learnerId\": \"john.doe\",\n\t\t\t\"trainingId\": \"sales-101\"\n\t\t},\n\t\t{\n\t\t\t\"learnerId\": \"john.doe\",\n\t\t\t\"trainingId\": \"management-101\"\n\t\t}\n\t]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{TOM_API_HOST}}/api/v3/training/access/import",
+									"host": [
+										"{{TOM_API_HOST}}"
+									],
+									"path": [
+										"api",
+										"v3",
+										"training",
+										"access",
+										"import"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": null,
+							"cookie": [],
+							"body": "{\n    \"meta\": {\n        \"status\": 200,\n        \"msg\": \"OK\",\n        \"timestamp\": 1583309761,\n        \"err\": 0,\n        \"errno\": 0\n    },\n    \"response\": {\n        \"importId\": \"fTeEgf47J9vTr98\",\n        \"status\": 2,\n        \"report\": {\n            \"errors\": []\n        }\n    }\n}"
+						}
+					]
 				},
 				{
-					"name": "Import Registrations Confirm",
+					"name": "Import Registrations Confirmation",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -413,12 +1258,127 @@
 							"variable": [
 								{
 									"key": "importId",
-									"value": "blah"
+									"value": ""
 								}
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Import Registrations Confirmation - 406 TRAINING_ACCESS_IMPORT_UNSUCCESSFUL",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{TOM_API_HOST}}/api/v3/training/access/import/:importId",
+									"host": [
+										"{{TOM_API_HOST}}"
+									],
+									"path": [
+										"api",
+										"v3",
+										"training",
+										"access",
+										"import",
+										":importId"
+									],
+									"variable": [
+										{
+											"key": "importId",
+											"value": "hTfEgf47J9vTr98"
+										}
+									]
+								}
+							},
+							"status": "Not Acceptable",
+							"code": 406,
+							"_postman_previewlanguage": "json",
+							"header": null,
+							"cookie": [],
+							"body": "{\n    \"meta\": {\n        \"status\": 406,\n        \"msg\": \"TRAINING_ACCESS_IMPORT_UNSUCCESSFUL\",\n        \"timestamp\": 1583309761,\n        \"err\": 0,\n        \"errno\": 0\n    },\n    \"response\": {\n        \"importId\": \"hTfEgf47J9vTr98\",\n        \"status\": 1,\n        \"report\": {\n            \"errors\": [\n        \t\t\"Missing parameter trainingId (index 3)\",\n        \t\t\"There are duplicates in the registrations list\"\n        \t]\n        }\n    }\n}"
+						},
+						{
+							"name": "Import Registrations Confirmation - 404 TRAINING_ACCESS_IMPORT_NOT_FOUND",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{TOM_API_HOST}}/api/v3/training/access/import/:importId",
+									"host": [
+										"{{TOM_API_HOST}}"
+									],
+									"path": [
+										"api",
+										"v3",
+										"training",
+										"access",
+										"import",
+										":importId"
+									],
+									"variable": [
+										{
+											"key": "importId",
+											"value": "someimportidthatdoesntexist"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": null,
+							"cookie": [],
+							"body": "{\n    \"meta\": {\n        \"status\": 404,\n        \"msg\": \"TRAINING_ACCESS_IMPORT_NOT_FOUND\",\n        \"timestamp\": 1583309761,\n        \"err\": 0,\n        \"errno\": 0\n    },\n    \"response\": {}\n}"
+						},
+						{
+							"name": "Import Registrations Confirm - 200 OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{TOM_API_HOST}}/api/v3/training/access/import/:importId",
+									"host": [
+										"{{TOM_API_HOST}}"
+									],
+									"path": [
+										"api",
+										"v3",
+										"training",
+										"access",
+										"import",
+										":importId"
+									],
+									"variable": [
+										{
+											"key": "importId",
+											"value": "fTeEgf47J9vTr98"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": null,
+							"cookie": [],
+							"body": "{\n    \"meta\": {\n        \"status\": 200,\n        \"msg\": \"OK\",\n        \"timestamp\": 1583309761,\n        \"err\": 0,\n        \"errno\": 0\n    },\n    \"response\": {\n        \"importId\": \"fTeEgf47J9vTr98\",\n        \"status\": 3,\n        \"report\": {\n            \"errors\": []\n        }\n    }\n}"
+						}
+					]
 				}
 			],
 			"event": [
